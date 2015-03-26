@@ -1,0 +1,126 @@
+<html>
+	<head>
+		<title>js-regexp-line</title>
+		<link rel="stylesheet" type="text/css" href="css/common.css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+	</head>
+	<body>
+	<style type="text/css">
+	    .animation-box{
+	    	width: 600px;
+	    	height: 400px;
+	    }
+	    .info-box{
+	    	width: 600px;
+	    	height: 400px;
+	    	overflow: scroll;
+	    }
+	    .flow-chart{
+	    	text-align: center;
+	    }
+	    .flow-chart ul{
+	    	
+	    }
+	    .flow-chart ul li{
+	    	margin-top: 5px;
+	    	border: 1px solid red;
+			padding: 5px;
+			margin: 5px;
+	    }
+	    .flow-chart ul li .reg{
+	    	background-color: #DB3434;
+	    	color: #fff;
+	    	padding: 5px 80px;
+	    	font-size: 18px;
+	    }
+	    .flow-chart ul li .res{
+	    	background-color: #146E1F;
+	    	color: #fff;
+	    	padding: 2px 80px;
+	    	font-size: 18px;
+	    	height: 18px;
+	    	line-height: 18px;
+	    }
+	    .content{
+	    	display: inline-block;
+	    	vertical-align: middle;
+	    }
+	    .branch{
+	    	display: inline-block;
+	    	vertical-align: middle;
+
+	    }
+	    #source{
+	    	width:800px;
+	    	margin:20px auto 0;
+	    	text-align:center; 
+	    	margin-bottom: 5px;
+	    }
+	    #source ul li{
+	    	margin-top: 5px;
+	    }
+	    #regexpInput,#textInput{
+	    	width: 500px;
+			height: 30px;
+			border: 1px solid gray;
+			padding: 0 5px;
+	    }
+	    #beginBtn{
+	    	padding: 5px 15px;
+	    }
+	    text{
+	    	font-size: 20px;
+	    }
+
+	</style>
+		<div id="source">
+		    <ul >
+		    	<li>正则表达式：<input type="text" id="regexpInput"/></li>
+		    	<li style="display:none;">需要匹配的字符串：<input type="text" id="textInput"/></li>
+		    	<li><input type="button" id="beginBtn" value="展示流程图" /></li>
+		    </ul>
+		</div>
+		<style type="text/css">
+		    path{
+		    	 stroke:#000000;
+		    	 fill:none;
+		    	 stroke-width: 2px
+		    }
+		    rect{
+		    	fill:#bada55;
+		    }
+		    text{
+		    	fill:#000;
+		    }
+		    tspan{
+
+		    }
+		</style>
+		<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="100%" width="100%" id="flowChart">
+			<g></g>
+		</svg>
+	</body>
+	<script type="text/javascript" src="js/require.js"></script>
+	<script src="js/d3.v3.min.js" charset="utf-8"></script>
+    <script src="js/dagre-d3.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+	<script type="text/javascript">
+
+	//var r=readGroup('abcd(asd(P|d+)?sa|*?d[a|f&&]da(sd)|)');
+	//console.log(r);
+	  require.config({
+		    baseUrl: "js/"
+		 });
+	    var regexpInputDom=document.getElementById('regexpInput');
+	    var textInputDom=document.getElementById('textInput');
+	    var beginBtnDom=document.getElementById('beginBtn');
+	    beginBtnDom.onclick=function(){
+	    	require(['main'],function(main){
+	    		console.log(regexpInputDom.value);
+	    		main.init(textInputDom.value,regexpInputDom.value);
+	    	});
+	    }
+	    
+	</script>
+</html>
