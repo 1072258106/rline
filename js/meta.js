@@ -147,7 +147,12 @@ define('meta', function() {
 		}
 	}
 
-	function parseMeta(str, arr) {
+	var groupIndex = 1;
+
+	function parseMeta(str, arr, isInit) {
+		if (isInit) {
+			groupIndex = 1;
+		}
 		var groupObj = readGroup(str);
 		var atIndex = 0,
 			atChar = '',
@@ -156,7 +161,6 @@ define('meta', function() {
 			isHex = false,
 			paraRight = 0,
 			finaIndex = 0;
-
 		for (var len = str.length; atIndex < len; atIndex++) {
 			isUnicode = false;
 			isHex = false;
@@ -204,7 +208,7 @@ define('meta', function() {
 
 				subStr = str.substring(atIndex);
 				tempFun = makeMeta('');
-				tempAtom = tempFun((/\[.*?(?=([^\\])(\]))/.exec(subStr)[0]) + (/\[.*?(?=([^\\])(\]))/.exec(subStr)[1])+(/\[.*?(?=([^\\])(\]))/.exec(subStr)[2]));
+				tempAtom = tempFun((/\[.*?(?=([^\\])(\]))/.exec(subStr)[0]) + (/\[.*?(?=([^\\])(\]))/.exec(subStr)[1]) + (/\[.*?(?=([^\\])(\]))/.exec(subStr)[2]));
 				atIndex += tempAtom.length;
 				arr[finaIndex][arr[finaIndex].length - 1].atom = tempAtom;
 
@@ -237,7 +241,7 @@ define('meta', function() {
 					subStr = /^\?!(.*)$/.exec(subStr)[1];
 					arr[finaIndex][arr[finaIndex].length - 1].type = '否定环视';
 				} else {
-					arr[finaIndex][arr[finaIndex].length - 1].type = '捕获分组';
+					arr[finaIndex][arr[finaIndex].length - 1].type = '捕获分组' + groupIndex++;
 				}
 				atIndex += subStr.length + 1;
 				arr[finaIndex][arr[finaIndex].length - 1].atom = subStr;
@@ -272,11 +276,6 @@ define('meta', function() {
 			meta += atChar;
 			return meta;
 		}
-	}
-
-	// unicode转义或16进制转义
-	function regEscape(str) {
-
 	}
 	return parseMeta;
 });

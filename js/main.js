@@ -1,10 +1,9 @@
 define('main', ['draw', 'meta', 'NFA'], function(draw, meta, NFA) {
 	function init(inputStr, regexpStr) {
-		//draw.drawInput(inputStr);
 		if (regexpStr === '') {
 			return;
-		} else if (/^\//.test(regexpStr) && /\/$/.test(regexpStr)) {
-			regexpStr = regexpStr.replace(/^\//, '').replace(/\/$/, '');
+		} else if (/^\//.test(regexpStr) && /(?:\/|\/i|\/g|\/m)$/.test(regexpStr)) {
+			regexpStr = regexpStr.replace(/^\//, '').replace(/(\/|\/i|\/g|\/m)$/, '');
 		}
 		try {
 			var reg = new RegExp(regexpStr);
@@ -12,13 +11,12 @@ define('main', ['draw', 'meta', 'NFA'], function(draw, meta, NFA) {
 			alert(e);
 		}
 		var metas = [];
-		meta(regexpStr, metas);
+		meta(regexpStr, metas, 1);
+		console.log('该正则表达式的生成数据结构如下：');
 		console.log(metas);
 		var obj = document.getElementById('flowChart');
 		draw.drawModel(metas, obj);
-		console.log(inputStr);
-		console.log(metas);
-		//NFA(inputStr, meta, showMatch);
+		//NFA(inputStr, meta, showMatch);//二期代码 todo
 	}
 	return {
 		init: init

@@ -21,18 +21,18 @@ define('draw', ['description'], function(des) {
 			var preNodes = [];
 			var depth = [];
 			var topIndex = 0;
-			// node命名规则 'node'+顶级index+深度+分支号+名称
+			// node命名规则 'node'+顶级index+深度+分支号+名称+随机数
 			function drawBranch(branchArr, curPreNodes, type, operator) {
 				//type = type ? type : '分支';
 				depth.push(1);
 				var curNodeName = '';
 				var bPreNodes = [];
 				var len = depth.length;
-				
+
 
 				if (type) {
 					preNodes = curPreNodes;
-					curNodeName = 'node' + topIndex + depth.length + 't' + 's'+Math.random();
+					curNodeName = 'node' + topIndex + depth.length + 't' + 's' + Math.random();
 					g.setNode(curNodeName, {
 						label: '进入' + type
 					});
@@ -58,7 +58,7 @@ define('draw', ['description'], function(des) {
 				for (var i = 0, len = branchArr.length; i < len; i++) { //进入分支
 					if (len !== 1) {
 						preNodes = curPreNodes;
-						curNodeName = 'node' + topIndex + depth.length + i + 's'+Math.random();
+						curNodeName = 'node' + topIndex + depth.length + i + 's' + Math.random();
 						g.setNode(curNodeName, {
 							label: '进入' + '分支'
 						});
@@ -80,9 +80,7 @@ define('draw', ['description'], function(des) {
 							topIndex = '' + i + j;
 						}
 						if (branchArr[i][j].branch.length === 0) { //内容元素
-							curNodeName = 'node' + topIndex + depth.length + i + j+Math.random();
-							console.log('neirong:');
-							console.log(curNodeName);
+							curNodeName = 'node' + topIndex + depth.length + i + j + Math.random();
 							g.setNode(curNodeName, {
 								label: des(branchArr[i][j].atom, j) + ' 匹配' + des(branchArr[i][j].operator, j, true)
 							});
@@ -95,12 +93,11 @@ define('draw', ['description'], function(des) {
 							preNodes = [curNodeName];
 						} else { //递归
 							preNodes = drawBranch(branchArr[i][j].branch, preNodes, branchArr[i][j].type, branchArr[i][j].operator);
-							console.log(preNodes);
 						}
 					}
 
 					if (len !== 1) {
-						curNodeName = 'node' + topIndex + depth.length + i + 'e'+Math.random();
+						curNodeName = 'node' + topIndex + depth.length + i + 'e' + Math.random();
 						g.setNode(curNodeName, {
 							label: ('分支' + '结束') + (operator ? ' 匹配' + des(operator, undefined, true) : '')
 						});
@@ -119,7 +116,7 @@ define('draw', ['description'], function(des) {
 				}
 
 				if (type) {
-					curNodeName = 'node' + topIndex + depth.length + 't' + 'e'+Math.random();
+					curNodeName = 'node' + topIndex + depth.length + 't' + 'e' + Math.random();
 					g.setNode(curNodeName, {
 						label: (type + '结束') + (operator ? ' 匹配' + des(operator, undefined, true) : '')
 					});
