@@ -222,6 +222,35 @@ define('meta', function() {
 			} else if (atChar === '|') {
 				arr[finaIndex].pop();
 				finaIndex++;
+				if (atIndex === 0) {
+					arr[finaIndex - 1] = [];
+					arr[finaIndex - 1][0] = {};
+					arr[finaIndex - 1][0].index = atIndex;
+
+					tempAtom = '';
+					arr[finaIndex - 1][0].atom = tempAtom;
+
+					arr[finaIndex - 1][0].operator = '';
+
+					arr[finaIndex - 1][0].branch = [];
+
+					arr[finaIndex - 1][0].length = 0;
+				}
+				if (atIndex === str.length - 1 || str[atIndex + 1] === '|') {
+
+					arr[finaIndex] = [];
+					arr[finaIndex][0] = {};
+					arr[finaIndex][0].index = atIndex;
+
+					tempAtom = '';
+					arr[finaIndex][0].atom = tempAtom;
+
+					arr[finaIndex][0].operator = '';
+
+					arr[finaIndex][0].branch = [];
+
+					arr[finaIndex][0].length = 0;
+				}
 			} else if (atChar === '(') {
 				paraRight = getRightPara(atIndex, groupObj.paraArr);
 

@@ -142,7 +142,8 @@ define('draw', ['description'], function(des) {
 				return bPreNodes;
 			}
 			g.setNode('start', {
-				label: 'start'
+				label: 'start',
+				title:'ssss'
 			});
 			preNodes.push('start');
 			g.node('start').style = "fill: #999";
@@ -183,6 +184,7 @@ define('draw', ['description'], function(des) {
 				.event(svg);
 			//svg.attr('height', g.graph().height * initialScale + 40);
 			svg.attr('width', g.graph().width * initialScale);
+			d3.selectAll('g').data([1,2,3,4,5,6,7]).enter().append('text').text(function(d){return d;});
 		}
 	};
 	return obj;
