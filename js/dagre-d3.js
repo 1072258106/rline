@@ -1,3 +1,6 @@
+SVGElement.prototype.getTransformToElement = SVGElement.prototype.getTransformToElement || function(toElement) {  
+    return toElement.getScreenCTM().inverse().multiply(this.getScreenCTM());  
+};  
 !function(e) {
     var f;
     "undefined" != typeof window ? f = window: "undefined" != typeof global ? f = global: "undefined" != typeof self && (f = self),
